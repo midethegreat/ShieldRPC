@@ -1,0 +1,30 @@
+{
+  "name": "@shieldrpc/sdk",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for ShieldRPC — AI-powered Solana transaction risk scoring",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "solana",
+    "shieldrpc",
+    "security",
+    "risk-scoring",
+    "transaction-analysis"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@solana/web3.js": "^1.91.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.5.0"
+  }
+}

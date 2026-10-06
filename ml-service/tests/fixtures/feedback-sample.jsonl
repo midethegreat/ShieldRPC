@@ -1,0 +1,2 @@
+{"feedback":{"feedback_type":"false_positive","scored_transaction_id":1,"note":"Legitimate DEX approve was flagged as risky"},"tx":{"id":"dex-approve-legit-1","category":"safe","serializedTransaction":"AQ=="}}
+{"feedback":{"feedback_type":"false_negative","scored_transaction_id":2,"note":"Unlimited approve drainer was not flagged"},"tx":{"id":"drain-unlimited-1","category":"risk:unlimited_approval","serializedTransaction":"AQ=="}}

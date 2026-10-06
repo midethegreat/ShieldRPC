@@ -1,0 +1,119 @@
+{
+  "generatedAt": "2026-09-18T01:51:36.424Z",
+  "schemaVersion": 1,
+  "tokenProgramId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+  "fakeMint": "359FEbvjMTr7AprDCU13HTqzkBPKT4mL9tjHAqEZpFoA",
+  "blockhashNote": "All samples use a synthetic blockhash. They parse correctly but are not signed.",
+  "samples": [
+    {
+      "id": "sol-transfer-safe",
+      "label": "Safe: 5 SOL transfer to a friend",
+      "category": "safe",
+      "notes": "Plain System Program transfer. No SPL, no approvals.",
+      "serializedTransaction": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDl8PtfCGiVLnfn2JQG9vnUre/7zNdbToB0V6DoOt7pbnF2bhOfuwIy6bGd4bhr+IcaQ5boSbcp3v9IiLlFkzfmQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6sBAgIAAQwCAAAAAPIFKgEAAAA="
+    },
+    {
+      "id": "spl-transfer-safe",
+      "label": "Safe: 42 SPL tokens transferred",
+      "category": "safe",
+      "notes": "SPL Token transfer + compute-unit tip. No approvals or authority changes.",
+      "serializedTransaction": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAIFl8PtfCGiVLnfn2JQG9vnUre/7zNdbToB0V6DoOt7pbkmjbRavCEOmnz5W6CuCcFGkgn9JTc8deWWJtwO84+dwpTzkNQfkBM3FpZo1O/RSfn3oo3rbQyz5OM8br5/Wdn1AwZGb+UhFzL/7K26csOb57yM5bvF9xJrLEObOkAAAAAG3fbh12Whk9nL4UbO63msHLSF7V9bN5E6jPWFfv8Aqaurq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urAgMACQOghgEAAAAAAAQDAgEACQOA3oACAAAAAA=="
+    },
+    {
+      "id": "spl-approve-small",
+      "label": "Safe-ish: small approve for 1M units",
+      "category": "safe",
+      "notes": "Below-at-risk threshold. Typical Jupiter/DEX pre-swap approve.",
+      "serializedTransaction": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAIEl8PtfCGiVLnfn2JQG9vnUre/7zNdbToB0V6DoOt7pbmU85DUH5ATNxaWaNTv0Un596KN620Ms+TjPG6+f1nZ9S/nMF2lb9K82yckpSZk//IHvieA+S1z4OUmKJOjMUogBt324ddloZPZy+FGzut5rBy0he1fWzeROoz1hX7/AKmrq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urqwEDAwECAAkEQEIPAAAAAAA="
+    },
+    {
+      "id": "spl-approve-unlimited",
+      "label": "RISKY: unlimited approve to unknown delegate",
+      "category": "risk:unlimited_approval",
+      "notes": "Amount == u64 max. Classic drainer pattern. Detector #1 should flag.",
+      "serializedTransaction": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAIEl8PtfCGiVLnfn2JQG9vnUre/7zNdbToB0V6DoOt7pbmU85DUH5ATNxaWaNTv0Un596KN620Ms+TjPG6+f1nZ9RPokc7w5YKdpR51JhuYqWk9TyY1Tw0YBgZ//7zD1CsHBt324ddloZPZy+FGzut5rBy0he1fWzeROoz1hX7/AKmrq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urqwEDAwECAAkE//////////8="
+    },
+    {
+      "id": "spl-approveChecked-unlimited",
+      "label": "RISKY: approveChecked (mint-aware) unlimited",
+      "category": "risk:unlimited_approval",
+      "notes": "approveChecked variant with decimals field + max u64.",
+      "serializedTransaction": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAMFl8PtfCGiVLnfn2JQG9vnUre/7zNdbToB0V6DoOt7pbmU85DUH5ATNxaWaNTv0Un596KN620Ms+TjPG6+f1nZ9RPokc7w5YKdpR51JhuYqWk9TyY1Tw0YBgZ//7zD1CsHHscFLQXmF1aHhG631lf1RAEEclftXQPuxjc96IYRpWUG3fbh12Whk9nL4UbO63msHLSF7V9bN5E6jPWFfv8Aqaurq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urAQQEAQMCAAoN//////////8J"
+    },
+    {
+      "id": "spl-setAuthority-owner",
+      "label": "RISKY: setAuthority AccountOwner -> unknown address",
+      "category": "risk:authority_change",
+      "notes": "Transfers ATA ownership to a scammer pubkey. Detector #2 should flag.",
+      "serializedTransaction": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDl8PtfCGiVLnfn2JQG9vnUre/7zNdbToB0V6DoOt7pbmU85DUH5ATNxaWaNTv0Un596KN620Ms+TjPG6+f1nZ9Qbd9uHXZaGT2cvhRs7reawctIXtX1s3kTqM9YV+/wCpq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6sBAgIBACMGAgFQ3L4jaue3Vf9mG72qpzwjotolgqM+mTpeCTBzIAqqKw=="
+    },
+    {
+      "id": "bundle-swap-safe",
+      "label": "Safe: Jupiter-style swap bundle (approve + transferChecked)",
+      "category": "safe",
+      "notes": "Multi-ix DEX interaction. Small bounded approve, no authority changes.",
+      "serializedTransaction": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAQHl8PtfCGiVLnfn2JQG9vnUre/7zNdbToB0V6DoOt7pbmU85DUH5ATNxaWaNTv0Un596KN620Ms+TjPG6+f1nZ9QXImK8lf4HsjeusTHkyr5ABVXuyUtZzRCYz81gGv4CCHscFLQXmF1aHhG631lf1RAEEclftXQPuxjc96IYRpWUv5zBdpW/SvNsnJKUmZP/yB74ngPktc+DlJiiTozFKIAMGRm/lIRcy/+ytunLDm+e8jOW7xfcSayxDmzpAAAAABt324ddloZPZy+FGzut5rBy0he1fWzeROoz1hX7/AKmrq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urqwMFAAkDIKEHAAAAAAAGAwEEAAkEIKEHAAAAAAAGBAEDAgAKDCChBwAAAAAACQ=="
+    },
+    {
+      "id": "sol-transfer-to-blocklisted-dest",
+      "label": "RISKY: SOL transfer to a known blocklisted destination wallet",
+      "category": "risk:known_malicious_address",
+      "notes": "Sends SOL to a destination that is in the maintained blocklist. Detector #3 should flag.",
+      "serializedTransaction": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDl8PtfCGiVLnfn2JQG9vnUre/7zNdbToB0V6DoOt7pbmZ9FJfQ8al97mC8rJ2eAendblUckbicPrsXQRFrrbg8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6sBAgIAAQwCAAAAAMqaOwAAAAA="
+    },
+    {
+      "id": "invoke-blocklisted-program",
+      "label": "RISKY: Direct invocation of a known blocklisted program ID",
+      "category": "risk:known_malicious_address",
+      "notes": "Calls a program ID that is in the blocklist (e.g. known drainer). Detector #3 should flag as critical.",
+      "serializedTransaction": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDl8PtfCGiVLnfn2JQG9vnUre/7zNdbToB0V6DoOt7pbnsggC6V9TonT+CapqxjqknscgufRYIdW/JgdHaMxfaSFLWdjOIc1BGWvZF/AyXltJuUatpEZ2JE2Oiarg2zf54q6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6sBAgIAAQQAAQID"
+    },
+    {
+      "id": "invoke-fresh-unverified-program",
+      "label": "RISKY: Interacting with a freshly deployed, unverified low-volume program",
+      "category": "risk:fresh_program",
+      "notes": "Program was deployed 1h ago, only 3 lifetime txs, not verified. Detector #4 should flag.",
+      "serializedTransaction": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDl8PtfCGiVLnfn2JQG9vnUre/7zNdbToB0V6DoOt7pbksxSAUzCgteY6xJuXfzqKyt/+jfX3gG2hZi+w3TWTdFzMyWVBLj1/eQpzTGVgwHThUUExjkdv44BQEMqi3cYE6q6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6sBAgIAAQEA"
+    },
+    {
+      "id": "invoke-established-verified-program",
+      "label": "Safe: Invoking an established, verified high-volume program (Jupiter-like)",
+      "category": "safe",
+      "notes": "Program is 180 days old, verified, 10M+ txs. Fresh-program detector must NOT flag.",
+      "serializedTransaction": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDl8PtfCGiVLnfn2JQG9vnUre/7zNdbToB0V6DoOt7pbnkfDVNFZoH1f2Ixb7WCLo7VZF++t7+xHlPDnogfucoDw8KHrCd1jzhAqMbQ8DFwdPNCRoQZpYUZ1O4rJtV72kEq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6sBAgIAAQEA"
+    }
+  ],
+  "detectorContextHints": {
+    "blockedAddresses": [
+      "BMyTWua7e7m7pvgpT2eHZ2AUkJhMqWixLoJEcwDTytq7"
+    ],
+    "blockedProgramIds": [
+      "6aN6vydEfxgPHGsKroHrUznNHs4M3rHdx9fFP6tFyY2b"
+    ],
+    "freshPrograms": {
+      "4SrKeAQGMocLDDzVJLi44hZ3u4fTFBDULmiTXyc18krV": {
+        "programId": "4SrKeAQGMocLDDzVJLi44hZ3u4fTFBDULmiTXyc18krV",
+        "deployedAt": 1789692696,
+        "transactionCount": 3,
+        "verified": false,
+        "displayName": "SuspiciousNewProtocol"
+      }
+    },
+    "trustedPrograms": {
+      "21i4oUz6r8NwKbrdXRnegSBG64CGNsZNLhXKoKDfnoU7": {
+        "programId": "21i4oUz6r8NwKbrdXRnegSBG64CGNsZNLhXKoKDfnoU7",
+        "deployedAt": 1774144296,
+        "transactionCount": 12345678,
+        "verified": true,
+        "displayName": "Jupiter Aggregator (mock)"
+      },
+      "6aN6vydEfxgPHGsKroHrUznNHs4M3rHdx9fFP6tFyY2b": {
+        "programId": "6aN6vydEfxgPHGsKroHrUznNHs4M3rHdx9fFP6tFyY2b",
+        "deployedAt": 1779328296,
+        "transactionCount": 543210,
+        "verified": true,
+        "displayName": "KnownDrainerProtocol_v2"
+      }
+    }
+  }
+}

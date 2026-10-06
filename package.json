@@ -1,0 +1,27 @@
+{
+  "name": "shieldrpc",
+  "private": true,
+  "version": "0.1.0",
+  "description": "ShieldRPC monorepo — AI-powered Solana pre-sign transaction risk scoring",
+  "license": "MIT",
+  "workspaces": [
+    "api",
+    "dashboard",
+    "sdk"
+  ],
+  "scripts": {
+    "dev": "concurrently -n api,ml,dash -c cyan,magenta,green \"npm:dev:api\" \"npm:dev:ml\" \"npm:dev:dash\"",
+    "dev:api": "npm --prefix api run dev",
+    "dev:ml": "python3 -m uvicorn main:app --reload --port 8000 --app-dir ml-service",
+    "dev:dash": "npm --prefix dashboard run dev",
+    "test": "npm --prefix api run test",
+    "typecheck": "cd api && npx tsc --noEmit && cd ../dashboard && npx tsc --noEmit && cd ../sdk && npx tsc --noEmit",
+    "api:seed-malicious": "npm --prefix api run db:seed-known-malicious",
+    "api:apply-schema": "npm --prefix api run db:apply-schema",
+    "docker:up": "docker compose up --build",
+    "docker:down": "docker compose down -v"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

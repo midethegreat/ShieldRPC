@@ -1,0 +1,100 @@
+# ShieldRPC — local development & preview compose stack.
+#
+# Runs the full MVP on a single host:
+#   dashboard   :8080  (nginx static + /api/* proxy → api)
+#   api         :3001  (Express, talks to ml-service + postgres)
+#   ml          :8000  (FastAPI scoring)
+#   postgres    :5432  (scored_transactions, blocklist, feedback)
+#
+# Usage:
+#   docker compose up --build
+#   # Dashboard: http://localhost:8080
+#   # API:       http://localhost:3001/v1/health
+#   # ML:        http://localhost:8000/health
+#   # Postgres:  localhost:5432 (user=shieldrpc pass=shieldrpc db=shieldrpc)
+
+name: shieldrpc
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: shieldrpc
+      POSTGRES_PASSWORD: shieldrpc
+      POSTGRES_DB: shieldrpc
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./api/sql/001_schema.sql:/docker-entrypoint-initdb.d/001_schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shieldrpc -d shieldrpc"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  ml:
+    build:
+      context: ./ml-service
+    restart: unless-stopped
+    environment:
+      PORT: "8000"
+    expose:
+      - "8000"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  api:
+    build:
+      context: ./api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      ml:
+        condition: service_started
+    environment:
+      NODE_ENV: production
+      PORT: "3001"
+      NETWORK: mainnet-beta
+      DATABASE_URL: postgres://shieldrpc:shieldrpc@postgres:5432/shieldrpc
+      ML_ENABLED: "1"
+      ML_SERVICE_URL: http://ml:8000
+      ML_TIMEOUT_MS: "2000"
+    ports:
+      - "3001:3001"
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3001/v1/health',r=>process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: ./dashboard/Dockerfile
+      args:
+        VITE_API_BASE: ""
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_started
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  postgres_data:
+    driver: local
